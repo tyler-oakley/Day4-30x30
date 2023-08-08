@@ -10,26 +10,24 @@ import { Entry } from '../entry';
 export class DashboardComponent {
   listOfEntries = ENTRIES;
   selectedEntry = new Entry('');
-  entryAlreadyExists: boolean = false;
 
-  save(entryInfo: string) {
+  save() {
+
+    let entryAlreadyExists = false;
 
     for (let entry of this.listOfEntries) {
-      if (entry.content == entryInfo) {
-        this.entryAlreadyExists = true;
+      if (entry.content == this.selectedEntry.content) {
+        entryAlreadyExists = true;
       }
     }
 
-    if (this.entryAlreadyExists) {
+    if (entryAlreadyExists) {
       alert("Item saved");
       this.selectedEntry = new Entry('');
     }
     else {
-      this.addEntry(entryInfo);
+      this.addEntry(this.selectedEntry.content);
     }
-
-    // reset boolean to await input from next entry
-    this.entryAlreadyExists = false;
   }
 
   delete(entryToDelete: Entry) {
